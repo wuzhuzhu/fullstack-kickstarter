@@ -13,6 +13,7 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-markdown: 8.0.5
+  react-speech-recognition: ^3.10.0
   ts-node: 10.9.1
   typescript: 4.9.4
 
@@ -25,6 +26,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-markdown: 8.0.5_3stiutgnnbnfnf3uowm5cip22i
+  react-speech-recognition: 3.10.0_react@18.2.0
 
 devDependencies:
   '@types/next-auth': 3.13.0
@@ -1113,6 +1115,14 @@ packages:
       vfile: 5.3.6
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /react-speech-recognition/3.10.0_react@18.2.0:
+    resolution: {integrity: sha512-EVSr4Ik8l9urwdPiK2r0+ADrLyDDrjB0qBRdUWO+w2MfwEBrj6NuRmy1GD3x7BU/V6/hab0pl8Lupen0zwlJyw==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react/18.2.0:
