@@ -1,8 +1,9 @@
 const Conversation = ({ conversation }) => {
   return (
     <div>
-      <p>{conversation.id}</p>
-      <p>{conversation.text}</p>
+      <h2>Conversation card</h2>
+      <p>{conversation?.id}</p>
+      <p>{conversation?.text}</p>
     </div>
   );
 };
