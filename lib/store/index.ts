@@ -1,36 +1,8 @@
 import { create, StateCreator } from 'zustand'
+import { Conversation, ConversationActions, createConversationSlice } from './slices/createConversationSlice'
 
-interface BearSlice {
-  bears: number
-  addBear: () => void
-  eatFish: () => void
-}
-const createBearSlice: StateCreator<
-  BearSlice & FishSlice,
-  [],
-  [],
-  BearSlice
-> = (set) => ({
-  bears: 0,
-  addBear: () => set((state) => ({ bears: state.bears + 1 })),
-  eatFish: () => set((state) => ({ fishes: state.fishes - 1 })),
-})
+type ConversationSlice = Conversation & ConversationActions
 
-interface FishSlice {
-  fishes: number
-  addFish: () => void
-}
-const createFishSlice: StateCreator<
-  BearSlice & FishSlice,
-  [],
-  [],
-  FishSlice
-> = (set) => ({
-  fishes: 0,
-  addFish: () => set((state) => ({ fishes: state.fishes + 1 })),
-})
-
-const useBoundStore = create<BearSlice & FishSlice>()((...a) => ({
-  ...createBearSlice(...a),
-  ...createFishSlice(...a),
+const useBoundStore = create<ConversationSlice>()((...a) => ({
+  ...createConversationSlice(...a),
 }))

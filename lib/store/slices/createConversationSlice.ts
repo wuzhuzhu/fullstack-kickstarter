@@ -1,20 +1,22 @@
 import { StateCreator } from "zustand";
 import type { IQnA } from "../../types/basic";
 
-export type Conversation = {
+export interface Conversation {
     lastIndex: number
     text: string
     qnas: IQnA[]
   }
   
-export type ConversationActions = {
+export interface ConversationActions {
     saveText: (text: string) => void
     addQnA: (qna: IQnA) => void
     answerQuestions: () => void
     setLastIndex: (index: number) => void
 }
 
-export const createConversationSlice = (set, _) => ({
+  export const createConversationSlice: StateCreator<
+  Conversation & ConversationActions
+> = (set) => ({
     lastIndex: -1,
     text: '',
     qnas: [],

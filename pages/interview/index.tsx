@@ -1,9 +1,11 @@
-import Layout from "../../components/Layout";
+import { useState, useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import Layout from "../../components/Layout";
 
 export const InterviewPage = () => {
+  const [isSupportedBrowser, setIsSupportedBrowser] = useState(true);
   const {
     transcript,
     listening,
@@ -11,11 +13,13 @@ export const InterviewPage = () => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+  useEffect(() => {
+    if (!browserSupportsSpeechRecognition) {
+      setIsSupportedBrowser(false);
+    }
+  }, [browserSupportsSpeechRecognition]);
 
-  return (
+  return isSupportedBrowser ? (
     <Layout>
       <p>Microphone: {listening ? "on" : "off"}</p>
       <button onClick={SpeechRecognition.startListening}>Start</button>
@@ -23,6 +27,8 @@ export const InterviewPage = () => {
       <button onClick={resetTranscript}>Reset</button>
       <p>{transcript}</p>
     </Layout>
+  ) : (
+    <span>Browser doesn't support speech recognition.</span>
   );
 };
 
