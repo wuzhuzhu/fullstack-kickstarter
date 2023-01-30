@@ -16,10 +16,13 @@
     "next": "13.1.6",
     "next-auth": "4.18.10",
     "nodemailer": "^6.9.1",
+    "openai": "^3.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "8.0.5",
-    "react-speech-recognition": "^3.10.0"
+    "react-speech-recognition": "^3.10.0",
+    "swr": "^2.0.3",
+    "zustand": "^4.3.2"
   },
   "devDependencies": {
     "@types/next-auth": "3.13.0",

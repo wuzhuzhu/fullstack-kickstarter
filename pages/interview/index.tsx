@@ -19,6 +19,12 @@ export const InterviewPage = () => {
     }
   }, [browserSupportsSpeechRecognition]);
 
+  const goGetQuestions = () => {
+    console.log("goGetQuestions");
+    // send current transcript to openai api
+    // add the response into Qna array, then reset transcript
+  };
+
   return isSupportedBrowser ? (
     <Layout>
       <p>Microphone: {listening ? "on" : "off"}</p>
@@ -26,6 +32,8 @@ export const InterviewPage = () => {
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={resetTranscript}>Reset</button>
       <p>{transcript}</p>
+      <hr />
+      <button onClick={goGetQuestions}>Send to AI</button>
     </Layout>
   ) : (
     <span>Browser doesn't support speech recognition.</span>
