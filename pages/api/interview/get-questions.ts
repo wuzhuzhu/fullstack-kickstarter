@@ -3,8 +3,10 @@ import { getSession } from 'next-auth/react';
 import openai from '../../../lib/openai';
 import { OPENAI_DEFAULT_MODEL } from '../../../lib/utils/config';
 
-export default async function get(req: NextApiRequest, res: NextApiResponse) {
+export default async function getQuestions(req: NextApiRequest, res: NextApiResponse) {
   const session = await getSession({ req })
+  const { text, tada } = req.body
+  console.log('text', text, tada)
   if (session) {
     console.log('a registered user', session.user?.name)
     const response = await openai.createCompletion({

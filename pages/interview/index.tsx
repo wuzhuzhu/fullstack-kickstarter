@@ -10,14 +10,37 @@ import fetcher from "../../lib/fetcher";
 import styles from "./index.module.scss";
 import { BREAK_POINTS_REDUNDANT } from "../../lib/utils/config";
 
+// todo: rm this
+const randomChinese = () => {
+  const charCodes = [];
+  const start = 19968;
+  const end = 40959;
+  const numOfChars = Math.floor(Math.random() * (end - start)) + start;
+  charCodes.push(numOfChars);
+  return String.fromCharCode(...charCodes);
+};
+
 export const InterviewPage = () => {
   const [isSupportedBrowser, setIsSupportedBrowser] = useState(true);
   const [isAILoading, setIsAILoading] = useState(false);
   const breakPoints = useStore((state) => state.breakPoints);
   const addBreakPoint = useStore((state) => state.addBreakPoint);
 
+  // todo: rm mock transcript
+  const [transcript, setTranscript] = useState("");
+  const [intervalId, setIntervalId] = useState(null);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTranscript((prevTranscript) => prevTranscript + randomChinese());
+    }, 500);
+    setIntervalId(id);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   const {
-    transcript,
+    // transcript, // todo: change it back from mock
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
@@ -30,8 +53,8 @@ export const InterviewPage = () => {
   }, [browserSupportsSpeechRecognition]);
 
   const goGetQuestions = async () => {
-    setIsAILoading(true);
     if (isAILoading) return;
+    setIsAILoading(true);
     try {
       // 1. get current transcript length as a new break point, add to brewkPoints array
       const currentLength = transcript.length;
@@ -39,6 +62,7 @@ export const InterviewPage = () => {
         currentLength > 0 &&
         currentLength > breakPoints[breakPoints.length - 1] // has some new content
       ) {
+        console.log("has some");
         // 2. get the piece of text of transcript between the last 2 breakpoints
         const lastBreakPointIndex = breakPoints[breakPoints.length - 1];
         // bring a little bit more text to the AI, make the input more likely complete
@@ -48,14 +72,20 @@ export const InterviewPage = () => {
             : lastBreakPointIndex,
           currentLength
         );
+        console.log("textToSend", textToSend);
         // 3. send that piece of text to the AI
         const res = await fetcher("/api/interview/get-questions", "post", {
           text: textToSend,
+          tada: "go",
         });
         // console.log("goGetQuestions", res);
         return res;
         addBreakPoint(currentLength);
+      } else {
+        console.log("no new content");
       }
+    } catch (e) {
+      console.error(e);
     } finally {
       setIsAILoading(false);
     }
@@ -74,7 +104,7 @@ export const InterviewPage = () => {
             ? breakPoints.map((bp, i) => <p key={i}>{bp}</p>)
             : null}
           <hr />
-          <button onClick={() => addBreakPoint(1)}>Send to AI</button>
+          <button onClick={goGetQuestions}>Send to AI</button>
         </div>
         <div className={styles.right}>
           <Conversations></Conversations>
