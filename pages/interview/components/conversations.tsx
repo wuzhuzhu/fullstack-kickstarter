@@ -12,9 +12,9 @@ const Conversations = () => {
   return (
     <div>
       <h2>Data List Blow</h2>
-      {data.conversations.map((conversation) => (
+      {/* {data.conversations.map((conversation) => (
         <Conversation key={conversation.id} conversation={conversation} />
-      ))}
+      ))} */}
     </div>
   );
 };
