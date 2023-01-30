@@ -22,10 +22,14 @@ export const InterviewPage = () => {
     }
   }, [browserSupportsSpeechRecognition]);
 
-  const goGetQuestions = () => {
-    console.log("goGetQuestions");
+  const goGetQuestions = async () => {
     // send current transcript to openai api
     // add the response into Qna array, then reset transcript
+    const res = await fetch("/api/interview/get-questions", {
+      method: "GET",
+    });
+    // console.log("goGetQuestions", res);
+    return res;
   };
 
   return isSupportedBrowser ? (
