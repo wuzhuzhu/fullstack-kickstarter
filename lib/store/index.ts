@@ -3,6 +3,8 @@ import { Conversation, ConversationActions, createConversationSlice } from './sl
 
 type ConversationSlice = Conversation & ConversationActions
 
-const useBoundStore = create<ConversationSlice>()((...a) => ({
+const useStore = create<ConversationSlice>()((...a) => ({
   ...createConversationSlice(...a),
 }))
+
+export default useStore
