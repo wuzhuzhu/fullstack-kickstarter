@@ -1,6 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import useSWR from 'swr';
 
+const axiosInstance = axios.create({
+    timeout: 20000,
+});
+
 const fetcher = (url: string, method: 'get' | 'post' | 'put' | 'delete' = 'get', data?: any) => {
     const options: AxiosRequestConfig = {
         method,
@@ -8,7 +12,7 @@ const fetcher = (url: string, method: 'get' | 'post' | 'put' | 'delete' = 'get',
         data,
     };
 
-    return axios(options)
+    return axiosInstance(options)
         .then((res: AxiosResponse) => res.data)
         .catch((error) => {
             // Log the error to a logging platform
@@ -17,6 +21,11 @@ const fetcher = (url: string, method: 'get' | 'post' | 'put' | 'delete' = 'get',
             // Handle network errors
             if (!error.response) {
                 throw new Error('Network Error');
+            }
+
+            // handle timeout error
+            if (error.code === 'ECONNABORTED') {
+                throw new Error('Abort: API Response timeout');
             }
 
             // Handle invalid API responses
