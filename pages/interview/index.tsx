@@ -24,9 +24,10 @@ export const InterviewPage = () => {
   const [isSupportedBrowser, setIsSupportedBrowser] = useState(true);
   const [isAILoading, setIsAILoading] = useState(false);
   const breakPoints = useStore((state) => state.breakPoints);
+  const qnas = useStore((state) => state.qnas);
   const addBreakPoint = useStore((state) => state.addBreakPoint);
 
-  // todo: rm mock transcript
+  /* // mock transcript
   const [transcript, setTranscript] = useState("");
   const [intervalId, setIntervalId] = useState(null);
   useEffect(() => {
@@ -37,10 +38,22 @@ export const InterviewPage = () => {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, []); */
+
+  const transcript = `ng: Hi there, could you introduce yourself?
+
+  Candidate: Hi, my name is [Name], I'm a front-end developer with [X years of experience].
+  
+  Wang: OK, [Name]. Can you tell me about a project you worked on that you're particularly proud of?
+  
+  Candidate: Sure, I worked on a website for an e-commerce company that had high traffic and complex user interactions. I was responsible for optimizing the site's performance and improving the user experience.
+  
+  Wang: Uh-huh, that's impressive. Can you go into the details of how you improve the performence?
+  
+  Candidate: Yes, I implemented lazy loading for images, minified and combined CSS and JavaScript files, and used caching to speed up page loading times. I also utilized animations to enhance the u`;
 
   const {
-    // transcript, // todo: change it back from mock
+    // transcript,
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
@@ -58,13 +71,15 @@ export const InterviewPage = () => {
     try {
       // 1. get current transcript length as a new break point, add to brewkPoints array
       const currentLength = transcript.length;
+      const lastBreakPointIndex = breakPoints[breakPoints.length - 1] || 0;
+      console.log(currentLength, lastBreakPointIndex, breakPoints);
       if (
         currentLength > 0 &&
-        currentLength > breakPoints[breakPoints.length - 1] // has some new content
+        currentLength > lastBreakPointIndex // has some new content
       ) {
         console.log("has some");
         // 2. get the piece of text of transcript between the last 2 breakpoints
-        const lastBreakPointIndex = breakPoints[breakPoints.length - 1];
+
         // bring a little bit more text to the AI, make the input more likely complete
         const textToSend = transcript.slice(
           lastBreakPointIndex - BREAK_POINTS_REDUNDANT > 0
@@ -72,14 +87,16 @@ export const InterviewPage = () => {
             : lastBreakPointIndex,
           currentLength
         );
-        console.log("textToSend", textToSend);
+        // console.log("textToSend", textToSend);
         // 3. send that piece of text to the AI
-        const res = await fetcher("/api/interview/get-questions", "post", {
-          text: textToSend,
-          tada: "go",
-        });
-        // console.log("goGetQuestions", res);
-        return res;
+        const { questions } = await fetcher(
+          "/api/interview/get-questions",
+          "post",
+          {
+            text: textToSend,
+          }
+        );
+        console.log("goGetQuestions", questions);
         addBreakPoint(currentLength);
       } else {
         console.log("no new content");
@@ -104,7 +121,9 @@ export const InterviewPage = () => {
             ? breakPoints.map((bp, i) => <p key={i}>{bp}</p>)
             : null}
           <hr />
-          <button onClick={goGetQuestions}>Send to AI</button>
+          <button onClick={goGetQuestions} disabled={isAILoading}>
+            Send to AI
+          </button>
         </div>
         <div className={styles.right}>
           <Conversations></Conversations>
