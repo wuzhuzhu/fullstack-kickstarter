@@ -9,7 +9,7 @@ export interface Conversation {
 
 export interface ConversationActions {
   addBreakPoint: (index: number) => void
-  addQnA: (qna: IQnA) => void
+  addQuestions: (questions: IQnA[]) => void
   answerQuestions: () => void
   setLastIndex: (index: number) => void
 }
@@ -23,7 +23,9 @@ export const createConversationSlice: StateCreator<
   addBreakPoint: (index: number) => set((state) => {
     return { breakPoints: [...state.breakPoints, index] }
   }),
-  addQnA: (qna: IQnA) => ([]), // TODO
+  addQuestions: (questions) => set((state) => {
+    return { qnas: [...state.qnas, ...questions] }
+  }),
   answerQuestions: () => ([]), // TODO
   setLastIndex: (index: number) => 0 // TODO
 })

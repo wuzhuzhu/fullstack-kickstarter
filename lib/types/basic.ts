@@ -1,4 +1,11 @@
 export interface IQnA {
     question: string
-    answer: string
+    answer?: string
+}
+
+export interface PromptConfig {
+    knowledgeDomain: 'frontend' | 'backend' | 'fullstack' | 'design' | 'product' | 'operations' | 'hr' | 'other'
+    language: 'zh-CN' | 'en-US'
+    programmingLanguage: 'javascript' | 'typescript' | 'python' | 'ruby' | 'java' | 'csharp' | 'go' | 'php' | 'swift' | 'kotlin' | 'scala' | 'rust' | 'dart' | 'other'
+    framework: 'react' | 'vue' | 'angular' | 'ember' | 'svelte' | 'next' | 'nuxt' | 'gatsby' | 'other'
 }
