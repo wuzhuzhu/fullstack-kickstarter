@@ -1,11 +1,29 @@
 import { useMemo } from "react";
 import { IParagraph } from "../../../lib/types/basic";
 
+type ParagraphParams = {
+  paragraph: IParagraph;
+  retryGetQuestions: () => void;
+};
+
 const Paragraph = ({ paragraph }: { paragraph: IParagraph }) => {
   const hasSome = useMemo(() => {
     return (paragraph?.qnas?.length || 0) > 0;
   }, [paragraph]);
-  if (!hasSome) return <h2>"no question recognized"</h2>;
+  const retryGetQuestions = () => {
+    console.log("retryGetQuestions");
+  };
+  if (!hasSome)
+    return (
+      <div>
+        <h2>
+          "no question recognized"{" "}
+          <button onClick={retryGetQuestions} disabled>
+            retry
+          </button>
+        </h2>
+      </div>
+    );
   return (
     <div>
       <h2>Paragraph card with {length} questions</h2>

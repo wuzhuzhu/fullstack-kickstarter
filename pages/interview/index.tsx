@@ -13,9 +13,10 @@ import { transcript } from "../../lib/utils/mock-tools";
 
 export const InterviewPage = () => {
   const [isSupportedBrowser, setIsSupportedBrowser] = useState(true);
-  const [isAILoading, setIsAILoading] = useState(false);
+  const isAILoading = useStore((state) => state.isAILoading);
+  // const [isAILoading, setIsAILoading] = useState(false);
+  const setIsAILoading = useStore((state) => state.setIsAILoading);
   const breakPoints = useStore((state) => state.breakPoints);
-  const paragraphs = useStore((state) => state.paragraphs);
   const addQuestions = useStore((state) => state.addQuestions);
   const addBreakPoint = useStore((state) => state.addBreakPoint);
 

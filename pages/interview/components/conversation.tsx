@@ -12,7 +12,7 @@ const Conversation = () => {
     return <p>Start recording to identify the list of problems</p>;
   return (
     <div>
-      <h2>Data List Blow</h2>
+      <h2>Data List Below</h2>
       {paragraphs.map((paragraph, i) => (
         <Paragraph key={`paragraph-${i}`} paragraph={paragraph} />
       ))}
