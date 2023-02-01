@@ -1,8 +1,10 @@
+import { useMemo } from "react";
 import { IParagraph } from "../../../lib/types/basic";
 
 const Paragraph = ({ paragraph }: { paragraph: IParagraph }) => {
-  const length = paragraph?.qnas?.length || 0;
-  const hasSome = length > 0;
+  const hasSome = useMemo(() => {
+    return (paragraph?.qnas?.length || 0) > 0;
+  }, [paragraph]);
   if (!hasSome) return <h2>"no question recognized"</h2>;
   return (
     <div>

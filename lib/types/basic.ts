@@ -10,7 +10,6 @@ export interface IParagraph {
 export interface IQnA {
     question: string
     answer?: string
-    betweenBreakPoints: BetweenBreakPoints
 }
 
 export interface PromptConfig {

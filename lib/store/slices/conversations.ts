@@ -31,14 +31,6 @@ const useConversationStore = create<IConversation & IConversationActions>()(
                         qnas: newQnas,
                     })
                 }),
-
-                // addQuestions: (questions, betweenBreakPints) => set((state) => {
-                //     const newQnas = questions.map(question => ({ question }))
-                //     state.paragraphs.push({
-                //         betweenBreakPoints,
-                //         qnas: newQnas,
-                //     })
-                // }),
                 answerQuestions: () => ([]), // TODO
             })
         }
