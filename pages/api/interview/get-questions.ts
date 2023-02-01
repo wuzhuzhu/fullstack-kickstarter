@@ -37,7 +37,6 @@ const generateGetQuestionsPrompt = ({ text, prevQuestions = [], config = default
   开发机嘛？fdasjl，后端大佬希望喜欢😍下班做什么？
   回答：
   ${QUESTION_PREFIX} Null
-  Needs to answer.
   输入：${text}
   回答：
   `
