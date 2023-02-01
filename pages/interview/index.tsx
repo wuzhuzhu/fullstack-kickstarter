@@ -9,7 +9,7 @@ import Conversation from "./components/conversation";
 import fetcher from "../../lib/fetcher";
 import styles from "./index.module.scss";
 import { BREAK_POINTS_REDUNDANT } from "../../lib/utils/config";
-import { transcript } from "../../lib/utils/mock-tools";
+// import { transcript } from "../../lib/utils/mock-tools"; // todo: toggle from mock
 
 export const InterviewPage = () => {
   const [isSupportedBrowser, setIsSupportedBrowser] = useState(true);
@@ -21,7 +21,7 @@ export const InterviewPage = () => {
   const addBreakPoint = useStore((state) => state.addBreakPoint);
 
   const {
-    // transcript, // todo: replace
+    transcript, // todo: toggle from mock
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
