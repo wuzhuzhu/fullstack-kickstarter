@@ -25,6 +25,7 @@ export const InterviewPage = () => {
   const [isAILoading, setIsAILoading] = useState(false);
   const breakPoints = useStore((state) => state.breakPoints);
   const qnas = useStore((state) => state.qnas);
+  const addQuestions = useStore((state) => state.addQuestions);
   const addBreakPoint = useStore((state) => state.addBreakPoint);
 
   /* // mock transcript
@@ -96,10 +97,11 @@ export const InterviewPage = () => {
             text: textToSend,
           }
         );
-        console.log("goGetQuestions", questions);
+        // todo: Atomize this operation in the store.
+        addQuestions(questions);
         addBreakPoint(currentLength);
       } else {
-        console.log("no new content");
+        console.log("no new content"); // todo: toast it
       }
     } catch (e) {
       console.error(e);
@@ -124,6 +126,7 @@ export const InterviewPage = () => {
           <button onClick={goGetQuestions} disabled={isAILoading}>
             Send to AI
           </button>
+          <button onClick={() => addQuestions(["提问问题1"])}>测试按钮</button>
         </div>
         <div className={styles.right}>
           <Conversations></Conversations>

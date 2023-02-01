@@ -1,20 +1,23 @@
+import { useEffect } from "react";
+import useStore from "../../../lib/store";
 import Conversation from "./conversation";
 
 const Conversations = () => {
   let data;
-  /* const {
-    data: { conversation },
-    error,
-    loading,
-  } = useQuery(CONVERSATIONS_QUERY); */
-  //   if (loading) return <Loading />;
-  //   if (error) return <Error error={error} />;
+  const qnas = useStore((state) => state.qnas);
+  useEffect(() => {
+    console.log({ qnas });
+  }, [qnas]);
   return (
     <div>
       <h2>Data List Blow</h2>
-      {/* {data.conversations.map((conversation) => (
-        <Conversation key={conversation.id} conversation={conversation} />
-      ))} */}
+      {qnas?.length ? (
+        qnas.map((qna, i) => (
+          <Conversation key={`qna-${i}`} conversation={qna} />
+        ))
+      ) : (
+        <p>Start recording to identify the list of problems</p>
+      )}
     </div>
   );
 };

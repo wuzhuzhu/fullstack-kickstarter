@@ -11,6 +11,6 @@ export const QUESTION_PREFIX = "[Question]: "
 export const DEFAULT_OPENAI_PARAMS: Omit<CreateCompletionRequest, 'prompt'> = {
     // possible options: [text-ada-001, text-babbage-001, text-curie-001, text-davinci-003]
     model: 'text-davinci-003',
-    temperature: 0.2,
+    temperature: 0.7,
     max_tokens: 1000,
 }

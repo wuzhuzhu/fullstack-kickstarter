@@ -1,9 +1,10 @@
-const Conversation = ({ conversation }) => {
+import { IQnA } from "../../../lib/types/basic";
+
+const Conversation = ({ conversation }: { conversation: IQnA }) => {
   return (
     <div>
       <h2>Conversation card</h2>
-      <p>{conversation?.id}</p>
-      <p>{conversation?.text}</p>
+      <p>{conversation?.question}</p>
     </div>
   );
 };
