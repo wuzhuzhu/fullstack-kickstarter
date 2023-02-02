@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "migrate-deploy": "DATABASE_URL=\"$MIGRATE_DATABASE_URL\" prisma migrate deploy",
+    "generate-client": "prisma generate --data-proxy"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "1.0.5",

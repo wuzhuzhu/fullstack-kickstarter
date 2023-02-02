@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import useSWR from "swr";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -26,6 +26,13 @@ export const InterviewPage = () => {
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
+
+  const startListening = useCallback(() => {
+    SpeechRecognition.startListening({
+      continuous: true,
+      // language: "zh-CN", // todo: test mixed language support
+    });
+  }, []);
 
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
@@ -81,7 +88,10 @@ export const InterviewPage = () => {
           <p>Microphone: {listening ? "on" : "off"}</p>
           <button
             onClick={() =>
-              SpeechRecognition.startListening({ continuous: true })
+              SpeechRecognition.startListening({
+                continuous: true,
+                language: "zh-CN",
+              })
             }
           >
             Start
