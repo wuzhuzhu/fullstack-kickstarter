@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
 
-  const {data: session, status} = useSession();
+  const { data: session, status } = useSession();
 
   let left = (
     <div className="left">
@@ -127,6 +127,11 @@ const Header: React.FC = () => {
         <Link href="/interview" legacyBehavior>
           <a data-active={isActive("/interview")}>
             Interview
+          </a>
+        </Link>
+        <Link href="/interview/clipboard" legacyBehavior>
+          <a data-active={isActive("/interview/clipboard")}>
+            Clipboard
           </a>
         </Link>
         <style jsx>{`
