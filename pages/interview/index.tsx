@@ -87,12 +87,7 @@ export const InterviewPage = () => {
         <div className={styles.left}>
           <p>Microphone: {listening ? "on" : "off"}</p>
           <button
-            onClick={() =>
-              SpeechRecognition.startListening({
-                continuous: true,
-                language: "zh-CN",
-              })
-            }
+            onClick={startListening}
           >
             Start
           </button>
