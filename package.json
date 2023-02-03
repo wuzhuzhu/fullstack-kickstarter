@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "migrate-deploy": "DATABASE_URL=\"$MIGRATE_DATABASE_URL\" prisma migrate deploy",
-    "generate-client": "prisma generate --data-proxy"
+    "generate-client-with-data-proxy": "prisma generate --data-proxy",
+    "generate-client": "prisma generate"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "1.0.5",
