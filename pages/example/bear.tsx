@@ -1,4 +1,4 @@
-import useBearStore from "../lib/store/slices/bear";
+import useBearStore from "../../lib/store/slices/bear";
 import BearList from "./bear-list";
 
 const BearPage = () => {

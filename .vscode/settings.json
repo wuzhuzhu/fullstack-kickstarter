@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/509e5d6c-f857-4e08-a0df-e4f4bd198f21/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/interview-helper",
+    "appService.deploySubpath": "."
+}
