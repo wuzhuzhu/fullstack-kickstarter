@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
-import { Head } from "next/document";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -200,21 +199,17 @@ const Header: React.FC = () => {
   }
 
   return (
-    <>
-      <Head>
-        <title>Interview & Run</title>
-      </Head>
-      <nav>
-        {left}
-        {right}
-        <style jsx>{`
-      nav {
-        display: flex;
-        padding: 2rem;
-        align-items: center;
-      }
-    `}</style>
-      </nav></>
+    <nav>
+      {left}
+      {right}
+      <style jsx>{`
+        nav {
+          display: flex;
+          padding: 2rem;
+          align-items: center;
+        }
+      `}</style>
+    </nav>
   );
 };
 
