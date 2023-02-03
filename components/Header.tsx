@@ -2,13 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
+import { Head } from "next/document";
 
 const Header: React.FC = () => {
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
 
-  const {data: session, status} = useSession();
+  const { data: session, status } = useSession();
 
   let left = (
     <div className="left">
@@ -199,17 +200,21 @@ const Header: React.FC = () => {
   }
 
   return (
-    <nav>
-      {left}
-      {right}
-      <style jsx>{`
-        nav {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-        }
-      `}</style>
-    </nav>
+    <>
+      <Head>
+        <title>Interview & Run</title>
+      </Head>
+      <nav>
+        {left}
+        {right}
+        <style jsx>{`
+      nav {
+        display: flex;
+        padding: 2rem;
+        align-items: center;
+      }
+    `}</style>
+      </nav></>
   );
 };
 
