@@ -9,6 +9,7 @@ import Conversation from "./components/conversation";
 import fetcher from "../../lib/fetcher";
 import styles from "./index.module.scss";
 import { BREAK_POINTS_REDUNDANT } from "../../lib/utils/config";
+import AzureSpeechRecognition from "../../lib/cognitive-polifill";
 // import { transcript } from "../../lib/utils/mock-tools"; // todo: toggle from mock
 
 export const InterviewPage = () => {
@@ -30,7 +31,7 @@ export const InterviewPage = () => {
   const startListening = useCallback(() => {
     SpeechRecognition.startListening({
       continuous: true,
-      // language: "zh-CN", // todo: test mixed language support
+      language: "zh-CN", // todo: microsoft polifill needed
     });
   }, []);
 
@@ -38,6 +39,9 @@ export const InterviewPage = () => {
     if (!browserSupportsSpeechRecognition) {
       setIsSupportedBrowser(false);
     }
+    // comment this line to use native browser speech recognition, remember change the stop btn to stopListening
+    // instead of abortListening(microsoft way)
+    SpeechRecognition.applyPolyfill(AzureSpeechRecognition);
   }, [browserSupportsSpeechRecognition]);
 
   const goGetQuestions = async () => {
@@ -91,7 +95,8 @@ export const InterviewPage = () => {
           >
             Start
           </button>
-          <button onClick={SpeechRecognition.stopListening}>Stop</button>
+          <button onClick={SpeechRecognition.abortListening}>Stop</button>
+          {/* <button onClick={SpeechRecognition.stopListening}>Stop</button>  */}
           <button onClick={resetTranscript}>Reset</button>
           <p>{transcript}</p>
           {breakPoints.length
