@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useHotkeys } from "react-hotkeys-hook";
 
 import Layout from "../../components/Layout";
 import getQuestions from "../api/interview/get-questions";
