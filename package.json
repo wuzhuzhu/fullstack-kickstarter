@@ -24,6 +24,7 @@
     "nodemailer": "^6.9.1",
     "openai": "^3.1.0",
     "react": "18.2.0",
+    "react-code-blocks": "0.0.9-0",
     "react-dom": "18.2.0",
     "react-markdown": "8.0.5",
     "react-speech-recognition": "^3.10.0",

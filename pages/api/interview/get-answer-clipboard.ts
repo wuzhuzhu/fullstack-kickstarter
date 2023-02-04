@@ -37,6 +37,7 @@ export default async function getAnswersOfClipboard(req: NextApiRequest, res: Ne
         try {
             const response = await openai.createCompletion({
                 ...DEFAULT_OPENAI_PARAMS,
+                model: 'code-davinci-002',
                 prompt: generateGetQuestionsPrompt({ question }),
             });
             const answer = response?.data?.choices?.[0]?.text

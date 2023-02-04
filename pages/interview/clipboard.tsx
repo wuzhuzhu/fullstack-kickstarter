@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CopyBlock, dracula } from "react-code-blocks";
 
 import Layout from "../../components/Layout";
 import getQuestions from "../api/interview/get-questions";
@@ -38,7 +39,12 @@ const ClipboardHistory = () => {
             {clipboardHistory.map((qna, index) => (
               <li key={index}>
                 <p>{qna.question}</p>
-                <p>{qna.answer}</p>
+                <CopyBlock
+                  text={qna.answer}
+                  language={'javascript'}
+                  wrapLines
+                  theme={dracula}
+                />
               </li>
             ))}
           </ul></div>
