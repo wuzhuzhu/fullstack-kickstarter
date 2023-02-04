@@ -9,7 +9,7 @@ import Conversation from "./components/conversation";
 import fetcher from "../../lib/fetcher";
 import styles from "./index.module.scss";
 import { BREAK_POINTS_REDUNDANT } from "../../lib/utils/config";
-import AzureSpeechRecognition from "../../lib/cognitive-polifill";
+import AzureSpeechRecognition from "../../lib/polyfill";
 // import { transcript } from "../../lib/utils/mock-tools"; // todo: toggle from mock
 
 export const InterviewPage = () => {
@@ -31,7 +31,7 @@ export const InterviewPage = () => {
   const startListening = useCallback(() => {
     SpeechRecognition.startListening({
       continuous: true,
-      language: "zh-CN", // todo: microsoft polifill needed
+      language: "zh-CN", // todo: microsoft polyfill needed
     });
   }, []);
 
@@ -48,7 +48,7 @@ export const InterviewPage = () => {
     if (isAILoading) return;
     setIsAILoading(true);
     try {
-      // 1. get current transcript length as a new break point, add to brewkPoints array
+      // 1. get current transcript length as a new break point, add to breakPoints array
       const currentLength = transcript.length;
       const lastBreakPointIndex = breakPoints[breakPoints.length - 1] || 0;
       console.log(currentLength, lastBreakPointIndex, breakPoints);
