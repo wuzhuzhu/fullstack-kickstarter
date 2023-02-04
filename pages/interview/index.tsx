@@ -8,8 +8,9 @@ import useStore from "../../lib/store/slices/conversations";
 import Conversation from "./components/conversation";
 import fetcher from "../../lib/fetcher";
 import styles from "./index.module.scss";
+// import applyPolyFill from '../../lib/cognitive-polyfill'
+
 import { BREAK_POINTS_REDUNDANT } from "../../lib/utils/config";
-import createSpeechServicePolyfill from 'web-speech-cognitive-services'
 // import { transcript } from "../../lib/utils/mock-tools"; // todo: toggle from mock
 
 export const InterviewPage = () => {
@@ -31,23 +32,16 @@ export const InterviewPage = () => {
   const startListening = useCallback(() => {
     SpeechRecognition.startListening({
       continuous: true,
-      language: "zh-CN", // todo: microsoft polyfill needed
+      // language: "zh-CN", // todo: microsoft polyfill needed
     });
   }, []);
+
+  // applyPolyFill();
 
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
       setIsSupportedBrowser(false);
     }
-    // comment this line to use native browser speech recognition, remember change the stop btn to stopListening
-    // instead of abortListening(microsoft way)
-    const { SpeechRecognition: AzureSpeechRecognition } = createSpeechServicePolyfill({
-      credentials: {
-        region: process.env.MICROSOFT_REGION,
-        subscriptionKey: process.env.MICROSOFT_SUBSCRIPTION_KEY
-      }
-    });
-    SpeechRecognition.applyPolyfill(AzureSpeechRecognition);
   }, [browserSupportsSpeechRecognition]);
 
   const goGetQuestions = async () => {
