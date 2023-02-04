@@ -129,6 +129,11 @@ const Header: React.FC = () => {
             Interview
           </a>
         </Link>
+        <Link href="/interview/clipboard" legacyBehavior>
+          <a data-active={isActive("/interview/clipboard")}>
+            Clipboard
+          </a>
+        </Link>
         <style jsx>{`
           .bold {
             font-weight: bold;

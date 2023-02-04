@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Layout from "../../components/Layout";
 
 const ClipboardHistory = () => {
   const [clipboardHistory, setClipboardHistory] = useState([]);
@@ -6,7 +7,7 @@ const ClipboardHistory = () => {
   useEffect(() => {
     document.addEventListener("copy", (event) => {
       /* the session has shut down */
-      console.log("copy event", event)
+      watchClipboard()
     });
 
 
@@ -27,14 +28,14 @@ const ClipboardHistory = () => {
   }, [clipboardHistory]);
 
   return (
-    <div>
+    <Layout>
       <h3>Clipboard History:</h3>
       <ul>
         {clipboardHistory.map((text, index) => (
           <li key={index}>{text}</li>
         ))}
       </ul>
-    </div>
+    </Layout>
   );
 };
 
