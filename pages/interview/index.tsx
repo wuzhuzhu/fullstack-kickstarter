@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import useSWR from "swr";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
