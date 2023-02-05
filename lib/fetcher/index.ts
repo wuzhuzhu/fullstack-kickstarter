@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import useSWR from 'swr';
 
 const axiosInstance = axios.create({
     timeout: 30000,
