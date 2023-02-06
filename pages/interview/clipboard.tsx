@@ -1,41 +1,55 @@
 import { useEffect, useState } from "react";
-import clipboardListener from 'clipboard-event'
+import { CopyBlock, dracula } from "react-code-blocks";
+
+import Layout from "../../components/Layout";
+import getQuestions from "../api/interview/get-questions";
+import styles from './clipboard.module.scss'
+import getAnswersOfClipboard from "../api/interview/get-answer-clipboard";
+import { IQnA } from "../../lib/types/basic";
+import fetcher from "../../lib/fetcher";
 
 const ClipboardHistory = () => {
-  const [clipboardHistory, setClipboardHistory] = useState([]);
+  const [clipboardHistory, setClipboardHistory] = useState([] as IQnA[]);
+  const [textareaValue, setTextareaValue] = useState('');
 
-  useEffect(() => {
-    const watchClipboard = async () => {
-      const newText = await navigator.clipboard.readText();
-      setClipboardHistory([...clipboardHistory, newText]);
-    };
-
-    clipboardListener.startListening();
-
-
-    clipboardListener.on('change', () => {
-      console.log('Clipboard changed');
-      watchClipboard();
-    });
-
-    return () => {
-      clipboardListener.stopListening();
-    };
-  }, [clipboardHistory]);
+  const handleKeyDown = async (event) => {
+    if (!textareaValue) return;
+    if (event.ctrlKey && event.key === 'Enter') {
+      const answer = await fetcher(
+        "/api/interview/get-answer-clipboard",
+        'post',
+        {
+          question: textareaValue
+        }
+      )
+      setClipboardHistory([...clipboardHistory, { question: textareaValue, answer: answer.answer }]);
+      setTextareaValue('');
+    }
+  };
 
   return (
-    <div>
-      <button onClick={async () => {
-        const text = await navigator.clipboard.readText();
-        console.log(text);
-      }}>读取复制的内容</button>
-      <h3>Clipboard History:</h3>
-      <ul>
-        {clipboardHistory.map((text, index) => (
-          <li key={index}>{text}</li>
-        ))}
-      </ul>
-    </div>
+    <Layout>
+      <div className={styles.container}>
+        <div className={styles.left}>
+          <h3>input question here</h3>
+          <textarea value={textareaValue} onChange={(e) => setTextareaValue(e.target.value)} onKeyDown={handleKeyDown} cols={40} rows={30} />
+        </div>
+        <div className={styles.right}>
+          <h3>Clipboard History:</h3><ul>
+            {clipboardHistory.map((qna, index) => (
+              <li key={index}>
+                <p>{qna.question}</p>
+                <CopyBlock
+                  text={qna.answer}
+                  language={'javascript'}
+                  wrapLines
+                  theme={dracula}
+                />
+              </li>
+            ))}
+          </ul></div>
+      </div>
+    </Layout >
   );
 };
 

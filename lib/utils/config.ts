@@ -2,7 +2,7 @@ import { CreateCompletionRequest } from 'openai'
 // open-ai
 
 // The number of redundant characters brought to the OpenAI API.
-export const BREAK_POINTS_REDUNDANT = 10
+export const BREAK_POINTS_REDUNDANT = 7
 
 // The prefix of each generated questions
 export const QUESTION_PREFIX = "[Question]: "

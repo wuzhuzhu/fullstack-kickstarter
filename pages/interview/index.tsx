@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import useSWR from "swr";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -8,6 +7,8 @@ import useStore from "../../lib/store/slices/conversations";
 import Conversation from "./components/conversation";
 import fetcher from "../../lib/fetcher";
 import styles from "./index.module.scss";
+// import applyPolyFill from '../../lib/cognitive-polyfill'
+
 import { BREAK_POINTS_REDUNDANT } from "../../lib/utils/config";
 // import { transcript } from "../../lib/utils/mock-tools"; // todo: toggle from mock
 
@@ -30,9 +31,11 @@ export const InterviewPage = () => {
   const startListening = useCallback(() => {
     SpeechRecognition.startListening({
       continuous: true,
-      // language: "zh-CN", // todo: test mixed language support
+      // language: "zh-CN", // todo: microsoft polyfill needed
     });
   }, []);
+
+  // applyPolyFill();
 
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
@@ -44,7 +47,7 @@ export const InterviewPage = () => {
     if (isAILoading) return;
     setIsAILoading(true);
     try {
-      // 1. get current transcript length as a new break point, add to brewkPoints array
+      // 1. get current transcript length as a new break point, add to breakPoints array
       const currentLength = transcript.length;
       const lastBreakPointIndex = breakPoints[breakPoints.length - 1] || 0;
       console.log(currentLength, lastBreakPointIndex, breakPoints);
@@ -91,7 +94,8 @@ export const InterviewPage = () => {
           >
             Start
           </button>
-          <button onClick={SpeechRecognition.stopListening}>Stop</button>
+          <button onClick={SpeechRecognition.abortListening}>Stop</button>
+          {/* <button onClick={SpeechRecognition.stopListening}>Stop</button>  */}
           <button onClick={resetTranscript}>Reset</button>
           <p>{transcript}</p>
           {breakPoints.length

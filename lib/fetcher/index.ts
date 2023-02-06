@@ -1,8 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import useSWR from 'swr';
 
 const axiosInstance = axios.create({
-    timeout: 20000,
+    timeout: 30000,
 });
 
 const fetcher = (url: string, method: 'get' | 'post' | 'put' | 'delete' = 'get', data?: any) => {
