@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosInstance = axios.create({
-    timeout: 30000,
+    timeout: 5 * 60000,
 });
 
 const fetcher = (url: string, method: 'get' | 'post' | 'put' | 'delete' = 'get', data?: any) => {
@@ -15,7 +15,7 @@ const fetcher = (url: string, method: 'get' | 'post' | 'put' | 'delete' = 'get',
         .then((res: AxiosResponse) => res.data)
         .catch((error) => {
             // Log the error to a logging platform
-            console.error(error);
+            console.error('Error in fetcher', error);
 
             // Handle network errors
             if (!error.response) {

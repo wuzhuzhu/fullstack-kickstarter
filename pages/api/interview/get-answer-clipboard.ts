@@ -29,7 +29,7 @@ const generateGetQuestionsPrompt = ({ question, config = defaultConfig }: IGener
     return prompt
 }
 
-export default async function getAnswersOfClipboard(req: NextApiRequest, res: NextApiResponse) {
+export default async function getAnswersOfClipboard(req: NextApiRequest, res: NextApiResponse<{ message: string, answer?: string }>) {
     const session = await getSession({ req })
     const { question, prevQuestions } = req.body
     console.log('text from textarea', question)
@@ -41,7 +41,7 @@ export default async function getAnswersOfClipboard(req: NextApiRequest, res: Ne
                 prompt: generateGetQuestionsPrompt({ question }),
             });
             const answer = response?.data?.choices?.[0]?.text
-            console.log({ question, answer })
+            console.log('Log in next api route', { question, answer })
             res.status(200).json({ message: 'OK', answer })
         } catch (e) {
             console.error('error', e.message)

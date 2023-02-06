@@ -1,16 +1,21 @@
 .container {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  min-height: calc(100vh - 8rem);
+  .left {
+    flex: 1;
+    overflow-y: scroll;
+  }
+  .right {
+    flex: 2;
+    padding: 0 20px;
+    background-color: #eee;
+    overflow-y: scroll;
+  }
+  .form {
     display: flex;
+    flex-direction: column;
     gap: 20px;
-    flex-direction: row;
-    min-height: calc(100vh - 8rem);
-    .left {
-        flex: 1;
-        overflow-y: scroll;
-    }
-    .right {
-        flex: 2;
-        padding: 0 20px;
-        background-color: #eee;
-        overflow-y: scroll;
-    }
+  }
 }
