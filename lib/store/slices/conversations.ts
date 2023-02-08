@@ -3,7 +3,6 @@ import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
 import { IQnA, BetweenBreakPoints, IParagraph } from '../../types/basic'
-
 interface IConversation {
     isAILoading: boolean;
     breakPoints: number[]
